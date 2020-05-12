@@ -130,7 +130,7 @@ public final class Job {
 
 extension Job : CustomStringConvertible {
     public var description: String {
-        return "Job \(name) @ \(url)"
+        return "Job \(name) @ \(url ?? "non-url")"
     }
 }
 

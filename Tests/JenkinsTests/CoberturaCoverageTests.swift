@@ -13,13 +13,8 @@ import XCTest
 class CoberturaCoverageTests: XCTestCase {
     
     func testCoberturaCodeCoverageDepth2() {
-        
-        guard let path = Bundle(for: type(of: self)).path(forResource: "CoberturaCoverageReportDepth2", ofType: "json") else {
-            return XCTFail("Missing Coverage Report JSON")
-        }
-        
         guard
-            let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped),
+            let data = CoberturaCoverageReportDepth2.data(using: .utf8),
             let json: JSON = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? JSON
             else {
                 return XCTFail("Failed mapping Coverage Report JSON")
@@ -38,16 +33,12 @@ class CoberturaCoverageTests: XCTestCase {
         
         let validLineRatio = 0.2
         let actualLineRatio = c.ratio(of: CoberturaCodeCoverageElementType.Lines)
-        XCTAssertEqualWithAccuracy(actualLineRatio, validLineRatio, accuracy: 0.05)
+        XCTAssertEqual(actualLineRatio, validLineRatio, accuracy: 0.05)
     }
     
     func testCoberturaCodeCoverageDepth3() {
-        guard let path = Bundle(for: type(of: self)).path(forResource: "CoberturaCoverageReportDepth3", ofType: "json") else {
-            return XCTFail("Missing Coverage Report JSON")
-        }
-        
         guard
-            let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped),
+            let data = CoberturaCoverageReportDepth3.data(using: .utf8),
             let json: JSON = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? JSON
             else {
                 return XCTFail("Failed mapping Coverage Report JSON")
@@ -66,7 +57,7 @@ class CoberturaCoverageTests: XCTestCase {
         
         let validLineRatio = 0.2
         let actualLineRatio = c.ratio(of: CoberturaCodeCoverageElementType.Lines)
-        XCTAssertEqualWithAccuracy(actualLineRatio, validLineRatio, accuracy: 0.05)
+        XCTAssertEqual(actualLineRatio, validLineRatio, accuracy: 0.05)
     }
     
 }
