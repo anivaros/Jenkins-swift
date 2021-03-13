@@ -2,16 +2,9 @@
  * Jenkins Swift Client
  */
 
-public enum Transport: CustomStringConvertible {
-    case HTTP
-    case HTTPS
-    
-    public var description: String {
-        switch self {
-        case .HTTP:     return "http"
-        case .HTTPS:    return "https"
-        }
-    }
+public enum Transport: String {
+    case http
+    case https
 }
 
 public final class Jenkins {
@@ -33,9 +26,9 @@ public final class Jenkins {
         return url.appendingPathComponent(path).absoluteString
     }
 
-    public init(host: String, port: Int, user: String, token: String, path: String, transport: Transport = .HTTP) throws {
+    public init(host: String, port: Int, user: String, token: String, path: String, transport: Transport = .http) throws {
         do {
-            self.client = try APIClient(host: host, port: port, path: path, user: user, token: token)
+            self.client = try APIClient(host: host, port: port, path: path, user: user, token: token, transport: transport.rawValue)
         } catch let error as APIError {
             throw JenkinsError(error: error)
         }
